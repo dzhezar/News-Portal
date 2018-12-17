@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Home\FakeHomeService;
 use App\Service\Home\HomePageServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,10 +21,11 @@ final class DefaultController extends AbstractController
      *
      * @return Response
      */
-    public function index(HomePageServiceInterface $service): Response
+    public function index(FakeHomeService $service): Response
     {
         $posts = $service->getPosts();
+        //return new Response(var_dump($posts));
 
-        return $this->render('default/index.html.twig');
+        return $this->render('default/index.html.twig',['posts'=>$posts]);
     }
 }

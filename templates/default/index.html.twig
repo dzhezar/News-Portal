@@ -1,0 +1,48 @@
+{%  extends 'base.html.twig' %}
+{% block title %}News Portal{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="css/site.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div class="container">
+    <main class="index" role="main">
+        <div class="main-post">
+            <img class="card-img-top" src="{{ posts.getIterator.0.image }}" alt="">
+            <small class="text-muted">{{ posts.getIterator.0.publicationDate.date }}</small>
+            <p class="post-text">
+            {{ posts.getIterator.0.description }}
+            </p>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Read more</button>
+            <div class="clearfix"></div>
+        </div>
+        <div class="py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                {% for key, post in posts %}
+                    {% if key != 0 %}
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top" src="{{ post.image }}" >
+                            <div class="card-body">
+                                <p class="card-text">
+                                   {{ post.description }}
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Read</button>
+                                    </div>
+                                    <small class="text-muted">{{ post.publicationDate.date }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+    </div>
+{% endblock %}
