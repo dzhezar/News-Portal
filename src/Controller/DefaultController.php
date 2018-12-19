@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * This file is part of the "News-portal" package.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller;
 
-use App\Service\Home\FakeHomeService;
 use App\Service\Home\HomePageServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Default site controller.
- *
- * @author Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
  */
 final class DefaultController extends AbstractController
 {
@@ -21,11 +25,10 @@ final class DefaultController extends AbstractController
      *
      * @return Response
      */
-    public function index(FakeHomeService $service): Response
+    public function index(HomePageServiceInterface $service): Response
     {
         $posts = $service->getPosts();
-        //return new Response(var_dump($posts));
 
-        return $this->render('default/index.html.twig',['posts'=>$posts]);
+        return $this->render('default/index.html.twig', ['posts'=>$posts]);
     }
 }

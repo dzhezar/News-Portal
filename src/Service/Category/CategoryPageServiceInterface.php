@@ -1,15 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dzhezar-bazar
- * Date: 17.12.18
- * Time: 22:01
+
+/*
+ * This file is part of the "News-portal" package.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Service\Category;
 
+use App\Post\PostsCollection;
 
-class CategoryPageServiceInterface
+/**
+ * Interface of category page service that provides data for home page.
+ */
+interface CategoryPageServiceInterface
 {
-
+    /**
+     * Gets collection of posts for home page.
+     *
+     * @param string $type
+     *
+     * @return PostsCollection
+     */
+    public function getPosts(string $type): PostsCollection;
 }
