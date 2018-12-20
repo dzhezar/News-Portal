@@ -1,39 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dzhezar-bazar
- * Date: 20.12.18
- * Time: 14:53
+
+/*
+ * This file is part of the "News_Portal" package.
+ * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace App\Controller;
 
 use App\Form\ContactForm;
+use App\Service\Contacts\ContactPageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 class ContactController extends AbstractController
 {
-    public function showContacts(Request $request): Response
+    public function showContacts(Request $request, ContactPageService $service): Response
     {
         $form = $this->createForm(ContactForm::class);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $csv = new CsvEncoder();
-
-            $var = $csv->encode($form->getData(), 'csv');
-
-            if (\file_exists('example.csv')) {
-                $var = \ltrim(\stristr($var, \PHP_EOL));
-            }
-            \file_put_contents('example.csv', $var, \FILE_APPEND); ?>
-            <script>
-                alert("Successful sending");
-            </script>
-            <?php
+            $service->encodeForm($form->getData());
+            $this->addFlash('notice', 'Success!');
         }
 
         return $this->render('default/contacts.html.twig', ['form'=>$form->createView()]);

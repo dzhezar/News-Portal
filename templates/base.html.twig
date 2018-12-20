@@ -27,7 +27,7 @@
                         <li><a href="#" class="text-white">Follow on Twitter</a></li>
                         <li><a href="#" class="text-white">Like on Facebook</a></li>
                         <li><a href="#" class="text-white">Email us</a></li>
-                        <li><a href="/contacts" class="text-white">Contact us</a></li>
+                        <li><a href="{{ path('contacts') }}" class="text-white">Contact us</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,16 +45,16 @@
     </div>
     <ul class="categories">
         <li>
-            <a href="/category/world">World</a>
+            <a href="{{ path('category',{'type':'world'}) }}">World</a>
         </li>
         <li>
-            <a href="/category/it">IT</a>
+            <a href="{{ path('category',{'type':'it'}) }}">IT</a>
         </li>
         <li>
-            <a href="/category/sport">Sport</a>
+            <a href="{{ path('category',{'type':'sport'}) }}">Sport</a>
         </li>
         <li>
-            <a href="/category/science">Science</a>
+            <a href="{{ path('category',{'type':'science'}) }}">Science</a>
         </li>
     </ul>
 </header>
