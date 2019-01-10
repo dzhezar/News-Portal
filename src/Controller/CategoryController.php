@@ -9,9 +9,10 @@
 
 namespace App\Controller;
 
+use App\Exception\EntityNotFoundException;
 use App\Service\Category\CategoryPageServiceInterface;
+use App\Service\Home\HomePageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -22,19 +23,26 @@ class CategoryController extends AbstractController
     /**
      * Renders category page.
      *
-     * @param $type
+     * @param string $slug
      * @param CategoryPageServiceInterface $service
      *
      * @return Response
      */
-    public function show($type, CategoryPageServiceInterface $service): Response
+    public function show(string $slug, CategoryPageServiceInterface $service, HomePageService $home): Response
     {
-        $posts = $service->getPosts(\ucfirst($type));
-
-        if (empty($posts)) {
-            throw new Exception('404.Not found');
+        try{
+            $category = $service->getCategoryBySlug($slug);
+        }
+        catch (EntityNotFoundException $e){
+            throw $this->createNotFoundException($e->getMessage());
         }
 
-        return $this->render('default/category.html.twig', ['title' => \ucfirst($type), 'posts'=>$posts]);
+        $posts = $service->getPosts($category);
+        $categories = $home->getCategories();
+        return $this->render('default/category.html.twig', [
+            'categories' => $categories,
+            'title' =>$category,
+            'posts'=>$posts
+        ]);
     }
 }

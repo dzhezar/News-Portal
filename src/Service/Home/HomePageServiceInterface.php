@@ -9,6 +9,7 @@
 
 namespace App\Service\Home;
 
+use App\Category\CategoriesCollection;
 use App\Post\PostsCollection;
 
 /**
@@ -24,4 +25,11 @@ interface HomePageServiceInterface
      * @return PostsCollection
      */
     public function getPosts(): PostsCollection;
+
+    /**
+     * Gets collection of categories for home page.
+     *
+     * @return CategoriesCollection
+     */
+    public function getCategories(): CategoriesCollection;
 }

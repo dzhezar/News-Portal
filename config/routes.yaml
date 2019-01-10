@@ -2,9 +2,9 @@ index:
     path: /
     controller: App\Controller\DefaultController::index
 category:
-    path: /category/{type}
+    path: /category/{slug}
     controller: App\Controller\CategoryController::show
 contacts:
     path: /contacts
-    controller: App\Controller\ContactController::showContacts
+    controller: App\Controller\DefaultController::showContacts
 

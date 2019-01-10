@@ -1,13 +1,8 @@
 <?php
 
-/*
- * This file is part of the "News_Portal" package.
- * (c) Dzhezar Kadyrov <dzhezik@gmail.com>
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace App\Dto;
+
+
 
 /**
  * Data transfer object for Post entity.
@@ -19,27 +14,20 @@ final class Post
     private $image;
     private $description;
     private $publicationDate;
-    private $type;
+    private $category;
 
-    public function __construct(string $description, \DateTimeInterface $publicationDate)
+
+    public function __construct(string $description, ?\DateTimeInterface $publicationDate, Category $category, ?string $image)
     {
         $this->description = $description;
         $this->publicationDate = $publicationDate;
+        $this->category = $category;
+        $this->image = $image;
     }
 
     public function setImage(string $src): void
     {
         $this->image = $src;
-    }
-
-    public function setType(string $src): void
-    {
-        $this->type = $src;
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 
     public function getImage(): string
@@ -52,8 +40,16 @@ final class Post
         return $this->description;
     }
 
-    public function getPublicationDate(): \DateTimeInterface
+    public function getPublicationDate(): ?string
     {
-        return $this->publicationDate;
+        if ($this->publicationDate != null) {
+            return $this->publicationDate->format('d-m-Y');
+        }
+        return null;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
     }
 }

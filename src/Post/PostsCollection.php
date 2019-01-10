@@ -42,4 +42,16 @@ final class PostsCollection implements \IteratorAggregate
     {
         return new \ArrayIterator($this->posts);
     }
+
+    public function isEmpty(): bool
+    {
+        $arr = \array_shift($this->posts);
+        if (null == $arr) {
+            \array_unshift($this->posts, $arr);
+            return true;
+        }
+
+        \array_unshift($this->posts, $arr);
+        return false;
+    }
 }
