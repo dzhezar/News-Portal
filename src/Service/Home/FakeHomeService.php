@@ -9,6 +9,8 @@
 
 namespace App\Service\Home;
 
+use App\Category\CategoriesCollection;
+use App\Dto\Category;
 use App\Dto\Post;
 use App\Post\PostsCollection;
 
@@ -32,15 +34,27 @@ final class FakeHomeService implements HomePageServiceInterface
         for ($i = 0; $i < self::POSTS_COUNT; $i++) {
             $dto = new Post(
                 $faker->text,
-                $faker->dateTime
+                $faker->dateTimeThisDecade,
+                new Category('IT',''),
+                $faker->imageUrl()
                 );
 
-            $dto->setType($faker->randomElement($types = ['world','it','sport','science']));
+            $dto->set($faker->randomElement($types = ['world','it','sport','science']));
             $dto->setImage($faker->imageUrl());
 
             $collection->addPost($dto);
         }
 
         return $collection;
+    }
+
+    /**
+     * Gets collection of categories for home page.
+     *
+     * @return CategoriesCollection
+     */
+    public function getCategories(): CategoriesCollection
+    {
+        return new CategoriesCollection([]);
     }
 }

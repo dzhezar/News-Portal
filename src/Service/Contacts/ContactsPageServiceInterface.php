@@ -9,6 +9,8 @@
 
 namespace App\Service\Contacts;
 
+use App\Dto\Contacts;
+
 /**
  * Interface of contact page service that provides data for csv file.
  */
@@ -20,4 +22,12 @@ interface ContactsPageServiceInterface
      * @param array $form
      */
     public function encodeForm(array $form): void ;
+
+    /**
+     * Get contacts info from database
+     *
+     * @return Contacts
+     */
+    public function getContacts(): Contacts;
 }
+

@@ -9,6 +9,7 @@
 
 namespace App\Service\Contacts;
 
+use App\Dto\Contacts;
 use Symfony\Component\Serializer\Encoder\CsvEncoder;
 
 /**
@@ -28,5 +29,17 @@ class ContactPageService implements ContactsPageServiceInterface
             $var = \ltrim(\stristr($var, \PHP_EOL));
         }
         \file_put_contents('example.csv', $var, \FILE_APPEND);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getContacts(): Contacts
+    {
+        return new Contacts(
+            'Kyiv, 39 Favela str',
+            '+380999999999',
+            'gabela@mail.ua'
+        );
     }
 }

@@ -1,25 +1,25 @@
 {%  extends 'base.html.twig' %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="css/site.css" rel="stylesheet">
-    <link href="css/index.css" rel="stylesheet">
-{% endblock %}
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="col-6">
                 <h3>Contacts</h3>
+                {% for contact in contacts %}
                 <ul>
-                    <li>+3809999999999</li>
-                    <li>asd@asd.asd</li>
-                    <li>Kyiv, 69 Gabela str.</li>
+                    <li>{{ contact }}</li>
                 </ul>
+                {% endfor %}
             </div>
             <div class="col-6">
-                <div class="form-group">
                 {{ form_start(form) }}
+                    {{ form_widget(form.Name,
+                        {'attr': {'class': 'form-control', 'placeholder' : 'Your name'}}) }}
+                    {{ form_widget(form.Email,
+                        {'attr': {'class': 'form-control', 'placeholder' : 'Your e-mail'}}) }}
+                    {{ form_widget(form.Text,
+                        {'attr': {'class': 'form-control', 'cols': 30, 'rows': 5, 'placeholder' : 'Text your wishes'}}) }}
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 {{ form_end(form) }}
-                </div>
                 {% for message in app.flashes('notice') %}
                     <div class="flash-notice">
                         {{ message }}
